@@ -294,7 +294,7 @@ const ExamInterface = () => {
               <button
                 onClick={handleNext}
                 disabled={currentQuestion === questions.length - 1}
-                className="px-6 py-3 bg-blue-500 rounded-md"
+                className="px-6 py-3 bg-blue-500 rounded-md mr-10"
               >
                 Next
               </button>
@@ -307,25 +307,30 @@ const ExamInterface = () => {
 
       {/* Sidebar */}
       <div className="w-[30%] bg-gray-800">
-        <div className="pt-12 pl-12">
-          <p className="text-2xl font-bold mb-8">Questions</p>
-          <div>
-            {questions.map((_, index) => (
-              <div
-                key={index}
-                className={`cursor-pointer py-2 text-center ${
-                  visitedQuestions.includes(index)
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-600 text-gray-400"
-                }`}
-                onClick={() => handleQuestionClick(index)}
-              >
-                Question {index + 1}
-              </div>
-            ))}
-          </div>
+  <div className="pt-12 pl-12">
+    <p className="text-2xl font-bold mb-8">Questions</p>
+    <div className="flex flex-wrap gap-x-4 gap-y-2">
+      {questions.map((_, index) => (
+        <div
+          key={index}
+          className={`cursor-pointer py-2 w-10 h-8 flex justify-center items-center rounded-md  text-center  ${
+            currentQuestion === index
+              ? "bg-yellow-500 text-white" // Current question is highlighted yellow
+              : answers[index] !== undefined // If the question has been answered
+              ? "bg-green-500 text-white" // Green if answered
+              : visitedQuestions.includes(index) // If visited but not answered
+              ? "bg-red-500 text-white" // Red if visited but not answered
+              : "bg-gray-600 text-gray-400" // Default color if not visited
+          }`}
+          onClick={() => handleQuestionClick(index)}
+        >
+          {index + 1}
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+</div>
+
     </div>
   );
 };
