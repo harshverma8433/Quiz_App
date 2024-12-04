@@ -33,7 +33,20 @@ const App = () => {
     };
   
     fetchUser();
+
+    checkPythonServer();
   }, []);
+  
+
+  const checkPythonServer = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/hello");
+      console.log("Flask server is running:", res.data.message);
+    } catch (error) {
+      console.error("Flask server not reachable:", error);
+    }
+  };
+  
   
   
 
